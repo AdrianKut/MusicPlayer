@@ -33,6 +33,7 @@ namespace MusicPlayer
         private bool firstPartOfSong = true;
         private bool secondPartOfSong = false;
 
+        static string currentSongName = "";
 
         public ProgramManager(Button buttonFolder, Button buttonPrevious, Button buttonPlay, Button buttonPause,
             Button buttonNext, Label labelCurrentSong, Label labelLength, Label labelLengthMax,
@@ -169,8 +170,6 @@ namespace MusicPlayer
             }
         }
 
-
-
         bool isPaused = false;
         public void Pause()
         {
@@ -187,73 +186,58 @@ namespace MusicPlayer
 
         }
 
-
-        private void timerLabel_Tick(object sender, EventArgs e)
-        {
-            SetLabelCurrentSong();
-        }
-
-        Timer timerLabelCurrentSong = new Timer();
-        
         public void SetLabelCurrentSong()
         {
-            timerLabelCurrentSong.Interval = 1000;
-            timerLabelCurrentSong.Tick += new System.EventHandler(timerLabel_Tick);
-
 
             if (listBoxPlaylist.Items.Count > 0)
+            {
+                int wordsLength = currentSongName.Length;
+
+                if (wordsLength > 25)
                 {
+                    string[] tempSongNameToSplit = currentSongName.Split(new char[] { '-' });
 
-                timerLabelCurrentSong.Start();
-
-                    string songName = listBoxPlaylist.SelectedItem.ToString();
-                    int wordsLength = songName.Length;
-
-                    if (wordsLength > 25)
+                    if (counterToSplitPartSongs < 5 && firstPartOfSong)
                     {
-                        string[] tempSongNameToSplit = songName.Split(new char[] { '-' });
-
-                        if (counterToSplitPartSongs < 5 && firstPartOfSong)
-                        {
-                            secondPartOfSong = false;
-                            labelCurrentSong.Text = tempSongNameToSplit[0];
-                            counterToSplitPartSongs++;
-                        }
-                        else
-                        {
-                            secondPartOfSong = true;
-                        }
-
-                        if (counterToSplitPartSongs > 0 && secondPartOfSong)
-                        {
-                            firstPartOfSong = false;
-                            labelCurrentSong.Text = tempSongNameToSplit[1];
-                            counterToSplitPartSongs--;
-                        }
-                        else
-                        {
-                            firstPartOfSong = true;
-                        }
+                        secondPartOfSong = false;
+                        labelCurrentSong.Text = tempSongNameToSplit[0];
+                        counterToSplitPartSongs++;
+                    }
+                    else
+                    {
+                        secondPartOfSong = true;
                     }
 
-                    else { labelCurrentSong.Text = "" + songName; }
+                    if (counterToSplitPartSongs > 0 && secondPartOfSong)
+                    {
+                        firstPartOfSong = false;
+                        labelCurrentSong.Text = tempSongNameToSplit[1];
+                        counterToSplitPartSongs--;
+                    }
+                    else
+                    {
+                        firstPartOfSong = true;
+                    }
+                }
 
-                
+                else { labelCurrentSong.Text = "" + currentSongName; }
+
+
 
             }
         }
 
-
-
         public void PlaySelectedMusic()
         {
-
             foreach (string item in songsPath)
             {
                 if (Path.GetFileName(item).Equals(listBoxPlaylist.SelectedItem))
                 {
                     mediaPlayer.Open(new Uri(item));
                     mediaPlayer.Play();
+
+                    currentSongName = listBoxPlaylist.SelectedItem.ToString();
+
                 }
             }
         }

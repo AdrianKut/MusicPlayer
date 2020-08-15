@@ -11,7 +11,7 @@ namespace MusicPlayer
         {
             InitializeComponent();
 
-            programManager = new ProgramManager(buttonFolder, buttonPrevious, buttonPlay,buttonPause, buttonNext,
+            programManager = new ProgramManager(buttonFolder, buttonPrevious, buttonPlay, buttonPause, buttonNext,
                 labelCurrentSong, labelLengthCurrent, labelLengthMax, listBoxPlaylist, openFileDialogMain);
             programManager.InitialImageButtons();
 
@@ -85,8 +85,6 @@ namespace MusicPlayer
         private void buttonPlay_Click(object sender, EventArgs e)
         {
             programManager.PlaySelectedMusic();
-            programManager.SetLabelCurrentSong();
-
             timerMain.Start();
         }
 
@@ -95,7 +93,7 @@ namespace MusicPlayer
             programManager.Pause();
         }
 
-       
+
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
@@ -115,7 +113,6 @@ namespace MusicPlayer
         private void listBoxPlaylist_DoubleClick(object sender, EventArgs e)
         {
             programManager.PlaySelectedMusic();
-            programManager.SetLabelCurrentSong();
         }
 
         private void listBoxPlaylist_KeyDown(object sender, KeyEventArgs e)
@@ -123,16 +120,10 @@ namespace MusicPlayer
             programManager.RemovePlaylistItem(e);
         }
 
-
-
-        
-
         private void timerMain_Tick(object sender, EventArgs e)
         {
             programManager.CurrentMusicPosition();
         }
-
-
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -146,7 +137,7 @@ namespace MusicPlayer
 
         private void timerLabel_Tick(object sender, EventArgs e)
         {
-            //programManager.SetLabelCurrentSong();
+            programManager.SetLabelCurrentSong();
         }
 
     }

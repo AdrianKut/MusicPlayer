@@ -76,7 +76,6 @@ namespace MusicPlayer
                 }
                 else
                 {
-
                     listBoxPlaylist.SelectedIndex = listBoxPlaylist.SelectedIndex + 1;
                     PlaySelectedMusic();
                 }
@@ -94,9 +93,16 @@ namespace MusicPlayer
                 }
                 else
                 {
-
-                    listBoxPlaylist.SelectedIndex = listBoxPlaylist.SelectedIndex - 1;
-                    PlaySelectedMusic();
+                    try
+                    {
+                        listBoxPlaylist.SelectedIndex = listBoxPlaylist.SelectedIndex - 1;
+                        PlaySelectedMusic();
+                    }
+                    catch (Exception)
+                    {
+                        listBoxPlaylist.SelectedIndex = 0;
+                        PlaySelectedMusic();
+                    }
                 }
             }
         }
@@ -182,10 +188,8 @@ namespace MusicPlayer
             if (!isPaused)
             {
                 mediaPlayer.Play();
-            }
-
+           }
         }
-
         public void SetLabelCurrentSong()
         {
 
@@ -219,11 +223,7 @@ namespace MusicPlayer
                         firstPartOfSong = true;
                     }
                 }
-
                 else { labelCurrentSong.Text = "" + currentSongName; }
-
-
-
             }
         }
 

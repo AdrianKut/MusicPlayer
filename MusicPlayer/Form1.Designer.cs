@@ -240,7 +240,7 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Music Player by Adrian Kut @2020";
+            this.Text = "@2020 Music Player ";
             this.TransparencyKey = System.Drawing.Color.DarkGray;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panelMain.ResumeLayout(false);

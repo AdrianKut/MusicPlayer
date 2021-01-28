@@ -93,8 +93,6 @@ namespace MusicPlayer
             programManager.Pause();
         }
 
-
-
         private void buttonNext_Click(object sender, EventArgs e)
         {
             programManager.NextSong();
@@ -130,14 +128,15 @@ namespace MusicPlayer
             Application.Exit();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
 
         private void timerLabel_Tick(object sender, EventArgs e)
         {
             programManager.SetLabelCurrentSong();
+        }
+       
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
 
     }
